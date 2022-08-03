@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const port = +process.env.PORT || 4000;
+const port = +process.env.PORT || 5000;
 
 app.listen(port, () => {
   console.log(chalk.green(`Server started on port ${port}`));
