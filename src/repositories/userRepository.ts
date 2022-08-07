@@ -1,6 +1,6 @@
 import { prisma } from "../data/db.js";
 
-import { userData } from "../services/userService.js";
+import { CreateUser } from './../interfaces/createData.js';
 
 export async function search(param: string, value: string | number) {
   return prisma.user.findFirst({
@@ -10,7 +10,7 @@ export async function search(param: string, value: string | number) {
   });
 }
 
-export async function create(user: userData) {
+export async function create(user: CreateUser) {
   return prisma.user.create({
     data: {
       ...user,

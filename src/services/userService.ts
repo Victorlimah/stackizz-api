@@ -1,19 +1,19 @@
 import jwt from "jsonwebtoken";
-import { User } from "@prisma/client";
+
+import { CreateUser } from "../interfaces/createData.js";
 
 import * as passUtils from "../utils/passUtils.js";
 import * as userRepository from "../repositories/userRepository.js";
 
 import { conflictError, unauthorizedError } from "../utils/errorUtils.js";
 
-export type userData = Omit<User, "id" | "createdAt" | "score">;
 
 export type userLoginData = {
   email: string;
   password: string;
 };
 
-export async function create(user: userData) {
+export async function create(user: CreateUser) {
   const userExists = await userRepository.search("email", user.email);
   if (userExists) throw conflictError("User already exists");
 
