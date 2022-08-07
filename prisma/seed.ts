@@ -116,11 +116,13 @@ async function main() {
     }
   ];
 
+  await prisma.$queryRaw`TRUNCATE TABLE users, modules, topics RESTART IDENTITY CASCADE;`;
+
   await prisma.user.create({ data: createUser });
   await prisma.module.createMany({ data: createModule });
 
   await prisma.topic.createMany({ data: createTopicsM1 });
-  
+
   await prisma.question.createMany({ data: createQuestionsT1M1 });
   await prisma.answer.createMany({ data: CreateAnswersT1M1 });
 }
