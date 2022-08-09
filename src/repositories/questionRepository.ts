@@ -13,3 +13,12 @@ export async function getAll(id: number) {
   });
   return questions;
 }
+
+export async function check(answerId: number) {
+  const result = await prisma.answer.findFirst({
+    where: {
+      id: answerId,
+    },
+  });
+  return result;
+}
