@@ -4,7 +4,7 @@ const errors = {
   "unauthorized": 401,
   "conflict": 409,
   "unprocessable": 422,
-  "NotFound": 404,
+  "not_found": 404,
 }
 
 export function errorHandler( err, _req: Request, res: Response, _next: NextFunction ) {
