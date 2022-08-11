@@ -13,5 +13,5 @@ export async function check(answerId: number) {
   const result =  await repository.check(answerId);
   if (!result) throw notFoundError("No answer found");
 
-  return { correct: result };
+  return result.correct;
 }

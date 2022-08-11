@@ -10,6 +10,6 @@ export async function getAll(req: Request, res: Response) {
 
 export async function check(req: Request, res: Response) {
   const id = req.params.id;
-  const result = await service.check(+id);
-  res.send({ correct: result });
+  const result = await service.check(+id);  
+  res.send({result});
 }
