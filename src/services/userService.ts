@@ -56,3 +56,7 @@ export async function updateScore(userId: number, score: number) {
   return updatedUser;
 }
 
+export async function getRanking() {
+  const users = await userRepository.getRanking();
+  return users;
+}

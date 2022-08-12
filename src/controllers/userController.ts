@@ -7,3 +7,8 @@ export async function updateScore(req: Request, res: Response) {
   const result = await service.updateScore(userId, score);
   res.send(result);
 }
+
+export async function getRanking(_req: Request, res: Response) {
+  const result = await service.getRanking();
+  res.send(result);
+}

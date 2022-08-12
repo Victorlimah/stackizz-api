@@ -29,3 +29,10 @@ export async function update(userId: number, data: any) {
   });
 }
 
+export async function getRanking() {
+  return prisma.user.findMany({
+    orderBy: {
+      score: "desc",
+    },
+  });
+}
