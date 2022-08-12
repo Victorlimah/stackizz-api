@@ -45,3 +45,14 @@ export async function searchUserOrError(param: string, value: string | number) {
 
   return user;
 }
+
+export async function updateScore(userId: number, score: number) {
+  const user = await userRepository.search("id", userId);
+  if (!user) throw unauthorizedError("User not found");
+
+  const newScore = user.score + score;
+  const updatedUser = await userRepository.update(userId, { score: newScore });
+
+  return updatedUser;
+}
+
