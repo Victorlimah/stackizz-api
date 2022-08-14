@@ -3,10 +3,11 @@ import jwt from "jsonwebtoken";
 import { CreateUser } from "../interfaces/createData.js";
 
 import * as passUtils from "../utils/passUtils.js";
+
+import * as historyRepository from "../repositories/historyRepository.js";
 import * as userRepository from "../repositories/userRepository.js";
 
 import { conflictError, unauthorizedError } from "../utils/errorUtils.js";
-
 
 export type userLoginData = {
   email: string;
@@ -46,14 +47,26 @@ export async function searchUserOrError(param: string, value: string | number) {
   return user;
 }
 
-export async function updateScore(userId: number, score: number) {
+export async function updateScore(
+  userId: number,
+  score: number,
+  topicId: number
+) {
   const user = await userRepository.search("id", userId);
   if (!user) throw unauthorizedError("User not found");
-
-  const newScore = user.score + score;
-  const updatedUser = await userRepository.update(userId, { score: newScore });
-
-  return updatedUser;
+  
+  const history = await historyRepository.searchHistory(userId, topicId);
+  if (history && history.score < score) {
+    const newScore = user.score + (score - history.score);
+    await userRepository.update(userId, { score: newScore });
+  } else {
+    await userRepository.update(userId, { score: user.score + score });
+  }
+  await historyRepository.createHistory({
+    userId,
+    topicId,
+    score,
+  });
 }
 
 export async function getRanking() {
