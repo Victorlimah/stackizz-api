@@ -10,13 +10,13 @@ export async function createHistory(data: CreateHistory) {
   });
 }
 
-export async function updateHistory(historyId: number, score: number) {
-  return prisma.history.update({
+export async function getHistory(userId: number) {
+  return prisma.history.findMany({
     where: {
-      id: historyId,
+      userId,
     },
-    data: {
-      score,
+    orderBy: {
+      createdAt: "desc",
     },
   });
 }

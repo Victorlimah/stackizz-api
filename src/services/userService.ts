@@ -4,8 +4,8 @@ import { CreateUser } from "../interfaces/createData.js";
 
 import * as passUtils from "../utils/passUtils.js";
 
-import * as historyRepository from "../repositories/historyRepository.js";
 import * as userRepository from "../repositories/userRepository.js";
+import * as historyRepository from "../repositories/historyRepository.js";
 
 import { conflictError, unauthorizedError } from "../utils/errorUtils.js";
 
@@ -54,7 +54,7 @@ export async function updateScore(
 ) {
   const user = await userRepository.search("id", userId);
   if (!user) throw unauthorizedError("User not found");
-  
+
   const history = await historyRepository.searchHistory(userId, topicId);
   if (history && history.score < score) {
     const newScore = user.score + (score - history.score);
@@ -67,6 +67,14 @@ export async function updateScore(
     topicId,
     score,
   });
+}
+
+export async function getHistory(userId: number) {
+  const user = await userRepository.search("id", userId);
+  if (!user) throw unauthorizedError("User not found");
+
+  const history = await historyRepository.getHistory(userId);
+  return history;
 }
 
 export async function getRanking() {
