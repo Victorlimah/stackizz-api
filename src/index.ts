@@ -4,7 +4,9 @@ import "express-async-errors";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import router from "./routes/index.js";
+import publicRoutes from "./routes/publicRoutes.js";
+import privateRoutes from "./routes/privateRoutes.js";
+
 import { errorHandler } from "./middlewares/errorHandler.js";
 
 const app = express();
@@ -13,7 +15,9 @@ dotenv.config();
 app.use(json());
 app.use(cors());
 
-app.use(router);
+app.use(publicRoutes);
+app.use(privateRoutes);
+
 app.use(errorHandler);
 
 export default app;

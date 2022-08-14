@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { unauthorizedError } from "../utils/errorUtils";
+import { unauthorizedError } from "../utils/errorUtils.js";
 
 export async function validateJWT(req: Request, res: Response, next: NextFunction) {
   let token = req.headers["authorization"];
