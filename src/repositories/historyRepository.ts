@@ -11,7 +11,17 @@ export async function createHistory(data: CreateHistory) {
 }
 
 export async function getHistory(userId: number) {
-  return prisma.history.findMany({
+  return await prisma.history.findMany({
+    select: {
+      id: true,
+      score: true,
+      topic: {
+        select: {
+          name: true,
+        },
+      },
+      createdAt: true,
+    },
     where: {
       userId,
     },

@@ -13,3 +13,9 @@ export async function getRanking(_req: Request, res: Response) {
   const result = await service.getRanking();
   res.send(result);
 }
+
+export async function getHistory(_req: Request, res: Response) {
+  const userId = res.locals.user.id;
+  const result = await service.getHistory(+userId);
+  res.send(result);
+}
