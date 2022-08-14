@@ -31,6 +31,11 @@ export async function update(userId: number, data: any) {
 
 export async function getRanking() {
   return prisma.user.findMany({
+    select:{
+      id: true,
+      name: true,
+      score: true,
+    },
     orderBy: {
       score: "desc",
     },

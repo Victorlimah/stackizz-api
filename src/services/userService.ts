@@ -57,7 +57,7 @@ export async function updateScore(
 
   const history = await historyRepository.searchHistory(userId, topicId);
   if (history && history.score < score) {
-    const newScore = user.score + (score - history.score);
+    const newScore = user.score + score - history.score + 1;
     await userRepository.update(userId, { score: newScore });
   } else {
     await userRepository.update(userId, { score: user.score + score });
