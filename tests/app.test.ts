@@ -41,11 +41,47 @@ describe("🌱 ~ POST /signup", () => {
 });
 
 describe("🌱 ~ POST /signin", () => {
-  it("✨ 201 ~ Sucess login - OK", async () => {});
+  it("✨ 200 ~ Sucess login - OK", async () => {
+    const user = dataFactory.userFactory();
 
-  it("✨ 401 ~ Fail login account unexist - UNAUTHORIZED", async () => {});
+    const response = await agent.post("/auth/signup").send(user);
+    expect(response.status).toBe(201);
 
-  it("✨ 401 ~ Fail login invalid credentials - UNAUTHORIZED", async () => {});
+    const userLogin = {
+      email: user.email,
+      password: user.password,
+    };
+
+    const login = await agent.post("/auth/signin").send(userLogin);
+    expect(login.status).toBe(200);
+    expect(login.body).toHaveProperty("token");
+  });
+
+  it("✨ 401 ~ Fail login account unexist - UNAUTHORIZED", async () => {
+    const user = dataFactory.userFactory();
+
+    const userLogin = {
+      email: user.email,
+      password: user.password,
+    };
+
+    const login = await agent.post("/auth/signin").send(userLogin);
+    expect(login.status).toBe(401);
+  });
+
+  it("✨ 401 ~ Fail login invalid credentials - UNAUTHORIZED", async () => {
+    const user = dataFactory.userFactory();
+    const response = await agent.post("/auth/signup").send(user);
+    expect(response.status).toBe(201);
+
+    const userLogin = {
+      email: user.email,
+      password: "password",
+    };
+
+    const login = await agent.post("/auth/signin").send(userLogin);
+    expect(login.status).toBe(401);
+  });
 });
 
 describe("🌱 ~ GET ALL DATA", () => {
