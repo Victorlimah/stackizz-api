@@ -107,9 +107,24 @@ describe("🌱 ~ GET ALL DATA", () => {
   });
 
   describe("🌱 ~ GET /topics", () => {
-    it("✨ 200 ~ Sucess getAll topics with 0 topics - OK", async () => {});
+    it("✨ 404 ~ Sucess getAll topics with 0 topics - OK", async () => {
+      const token = await scenario.adminAccountAndReturnToken();
+      const response = await agent
+        .get("/topic/1")
+        .set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe("No topic found");
+    });
 
-    it("✨ 200 ~ Sucess getAll topics with 3 topics - OK", async () => {});
+    it("✨ 200 ~ Sucess getAll topics with 3 topics - OK", async () => {
+      await scenario.treeModulesAndTreeTopics();
+      const token = await scenario.adminAccountAndReturnToken();
+      const response = await agent
+        .get("/topic/1")
+        .set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(200);
+      expect(response.body.Topic.length).toBe(3);
+    });
   });
 
   describe("🌱 ~ GET /questions", () => {
