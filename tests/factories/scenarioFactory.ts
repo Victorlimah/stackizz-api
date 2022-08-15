@@ -5,7 +5,7 @@ import { moduleFactory } from "./dataFactory.js";
 export async function deleteAllData() {
   await prisma.$queryRaw`
   TRUNCATE TABLE
-    users, history,
+    users, histories,
     modules, topics,
     questions, answers
   RESTART IDENTITY CASCADE`;

@@ -15,11 +15,29 @@ beforeEach(async () => {
 const agent = supertest.agent(app);
 
 describe("🌱 ~ POST /signup", () => {
-  it("✨ 201 ~ Sucess create a new account - CREATED", async () => {});
+  it("✨ 201 ~ Sucess create a new account - CREATED", async () => {
+    const user = dataFactory.userFactory();
 
-  it("✨ 409 ~ Fail create a new account - CONFLICT", async () => {});
+    const response = await agent.post("/auth/signup").send(user);
+    expect(response.status).toBe(201);
+  });
 
-  it("✨ 422 ~ Fail create a new account - UNPROCESSABLE", async () => {});
+  it("✨ 409 ~ Fail create a new account - CONFLICT", async () => {
+    const user = dataFactory.userFactory();
+
+    const response = await agent.post("/auth/signup").send(user);
+    expect(response.status).toBe(201);
+
+    const duplicate = await agent.post("/auth/signup").send(user);
+    expect(duplicate.status).toBe(409);
+  });
+
+  it("✨ 422 ~ Fail create a new account - UNPROCESSABLE", async () => {
+    const user = {};
+
+    const response = await agent.post("/auth/signup").send(user);
+    expect(response.status).toBe(422);
+  });
 });
 
 describe("🌱 ~ POST /signin", () => {
@@ -57,7 +75,7 @@ describe("🌱 ~ GET ALL DATA", () => {
 
   describe("🌱 ~ GET /history", () => {
     it("✨ 200 ~ Sucess getAll history with 2 history - OK", async () => {});
-  
+
     it("✨ 200 ~ Sucess getAll history with 5 history - OK", async () => {});
   });
 });
@@ -69,4 +87,3 @@ describe("🌱 ~ POST /user/score", () => {
 
   it("✨ 200 ~ Sucess update score to 150 - CREATED", async () => {});
 });
-
