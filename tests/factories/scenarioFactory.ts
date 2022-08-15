@@ -46,3 +46,21 @@ export async function treeModulesAndTreeTopicsAndTreeQuestions(){
   const questions = dataFactory.questionsFactory(3);
   await prisma.question.createMany({ data: questions });
 }
+
+export async function accountWhithScoreReturningToken(score: number){
+  await treeModulesAndTreeTopicsAndTreeQuestions();
+  const user = dataFactory.userFactory();
+  await agent.post("/auth/signup").send(user);
+
+  const login = await agent.post("/auth/signin").send({
+    email: user.email,
+    password: user.password,
+  });
+
+  await prisma.user.update({
+    where: { email: user.email },
+    data: { score },
+  });
+
+  return login.body.token;
+}

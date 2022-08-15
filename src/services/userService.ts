@@ -67,6 +67,8 @@ export async function updateScore(
     topicId,
     score,
   });
+
+  return { score };
 }
 
 export async function getHistory(userId: number) {

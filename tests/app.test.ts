@@ -162,9 +162,24 @@ describe("🌱 ~ GET ALL DATA", () => {
 });
 
 describe("🌱 ~ POST /user/score", () => {
-  it("✨ 200 ~ Sucess update score to 50 - CREATED", async () => {});
+  it("✨ 200 ~ Sucess update score to 50 - OK", async () => {
+    const token = await scenario.accountWhithScoreReturningToken(0);
+    const response = await agent
+      .post("/user/score")
+      .set("Authorization", `Bearer ${token}`)
+      .send({ topicId: 2, score: 50 });
+    expect(response.status).toBe(200);
+    expect(response.body.score).toBe(50);
+  });
 
-  it("✨ 200 ~ Sucess update score to 100 - CREATED", async () => {});
+  it("✨ 200 ~ If you answer the same quiz, the score doesn't change", async () => {
+    const token = await scenario.accountWhithScoreReturningToken(50);
+    const response = await agent
+      .post("/user/score")
+      .set("Authorization", `Bearer ${token}`)
+      .send({ topicId: 2, score: 50 });
+    expect(response.status).toBe(200);
+    expect(response.body.score).toBe(50);
+  });
 
-  it("✨ 200 ~ Sucess update score to 150 - CREATED", async () => {});
 });
