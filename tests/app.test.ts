@@ -181,5 +181,4 @@ describe("🌱 ~ POST /user/score", () => {
     expect(response.status).toBe(200);
     expect(response.body.score).toBe(50);
   });
-
 });
