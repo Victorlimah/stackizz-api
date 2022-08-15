@@ -86,9 +86,24 @@ describe("🌱 ~ POST /signin", () => {
 
 describe("🌱 ~ GET ALL DATA", () => {
   describe("🌱 ~ GET /modules", () => {
-    it("✨ 200 ~ Sucess getAll modules with 0 modules - OK", async () => {});
+    it("✨ 404 ~ Sucess getAll modules with 0 modules - OK", async () => {
+      const token = await scenario.adminAccountAndReturnToken();
+      const response = await agent
+        .get("/modules")
+        .set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe("No modules found");
+    });
 
-    it("✨ 200 ~ Sucess getAll modules with 3 modules - OK", async () => {});
+    it("✨ 200 ~ Sucess getAll modules with 3 modules - OK", async () => {
+      await scenario.treeModules();
+      const token = await scenario.adminAccountAndReturnToken();
+      const response = await agent
+        .get("/modules")
+        .set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(200);
+      expect(response.body.length).toBe(3);
+    });
   });
 
   describe("🌱 ~ GET /topics", () => {

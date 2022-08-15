@@ -13,9 +13,9 @@ export function userFactory(): CreateUser{
 
 export function moduleFactory(quantity: number = 1): Module[] {
   const modules: Module[] = [];
-  for (let i = 0; i < quantity; i++) {
+  for (let id = 0; id < quantity; id++) {
     modules.push({
-      id: parseInt(faker.random.alphaNumeric(10)),
+      id,
       name: faker.random.words(2),
       
     });
