@@ -39,3 +39,10 @@ export async function treeModulesAndTreeTopics(){
   const topics = dataFactory.topicsFactory(3);
   await prisma.topic.createMany({ data: topics });
 }
+
+export async function treeModulesAndTreeTopicsAndTreeQuestions(){
+  await treeModulesAndTreeTopics();
+
+  const questions = dataFactory.questionsFactory(3);
+  await prisma.question.createMany({ data: questions });
+}

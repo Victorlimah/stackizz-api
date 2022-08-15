@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import { Module, Topic } from "@prisma/client";
+import { Module, Topic, Question } from "@prisma/client";
 import { CreateUser } from "../../src/interfaces/createData.js";
 
 export function userFactory(): CreateUser{
@@ -33,4 +33,16 @@ export function topicsFactory(quantity: number = 1): Topic[] {
     });
   }
   return topics;
+}
+
+export function questionsFactory(quantity: number = 1): Question[] {
+  const questions: Question[] = [];
+  for (let id = 1; id <= quantity; id++) {
+    questions.push({
+      id,
+      name: faker.random.words(2),
+      topicId: 1,
+    });
+  }
+  return questions;
 }

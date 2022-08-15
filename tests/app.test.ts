@@ -128,9 +128,24 @@ describe("🌱 ~ GET ALL DATA", () => {
   });
 
   describe("🌱 ~ GET /questions", () => {
-    it("✨ 200 ~ Sucess getAll questions with 0 questions - OK", async () => {});
+    it("✨ 200 ~ Sucess getAll questions with 0 questions - OK", async () => {
+      const token = await scenario.adminAccountAndReturnToken();
+      const response = await agent
+        .get("/questions/1")
+        .set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(404);
+      expect(response.body.message).toBe("No questions found");
+    });
 
-    it("✨ 200 ~ Sucess getAll questions with 3 questions - OK", async () => {});
+    it("✨ 200 ~ Sucess getAll questions with 3 questions - OK", async () => {
+      await scenario.treeModulesAndTreeTopicsAndTreeQuestions();
+      const token = await scenario.adminAccountAndReturnToken();
+      const response = await agent
+        .get("/questions/1")
+        .set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(200);
+      expect(response.body.length).toBe(3);
+    });
   });
 
   describe("🌱 ~ GET /ranking", () => {
