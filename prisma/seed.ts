@@ -88,23 +88,23 @@ export async function main() {
   const createQuestionsT2M1: CreateQuestion[] = [
     {
       name: "Qual tag abaixo pertence a um menu de navegação?",
-      topicId: 1,
+      topicId: 2,
     },
     {
       name: "Qual atributo abaixo não pertence a tag <a>?",
-      topicId: 1,
+      topicId: 2,
     },
     {
       name: "Qual a forma correta de se criar uma imagem?",
-      topicId: 1,
+      topicId: 2,
     },
     {
       name: "Qual tag listada abaixo não é suportada no HTML 5?",
-      topicId: 1,
+      topicId: 2,
     },
     {
       name: "Qual atributo devemos utilizar para inserir propriedades CSS?",
-      topicId: 1,
+      topicId: 2,
     },
   ];
 
