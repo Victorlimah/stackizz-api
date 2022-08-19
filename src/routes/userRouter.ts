@@ -7,5 +7,6 @@ const userRouter = Router();
 userRouter.post("/user/score", controller.updateScore);
 userRouter.get("/ranking", controller.getRanking);
 userRouter.get("/history", controller.getHistory);
+userRouter.post("/seed", controller.seed);
 
 export default userRouter;

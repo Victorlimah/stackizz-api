@@ -7,6 +7,8 @@ import * as passUtils from "../utils/passUtils.js";
 import * as userRepository from "../repositories/userRepository.js";
 import * as historyRepository from "../repositories/historyRepository.js";
 
+import { main } from "../../prisma/seed.js";
+
 import { conflictError, unauthorizedError } from "../utils/errorUtils.js";
 
 export type userLoginData = {
@@ -82,4 +84,9 @@ export async function getHistory(userId: number) {
 export async function getRanking() {
   const users = await userRepository.getRanking();
   return users;
+}
+
+export async function seed() {
+  await main();
+  return;
 }

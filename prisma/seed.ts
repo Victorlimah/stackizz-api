@@ -11,7 +11,7 @@ import * as passUtils from "../src/utils/passUtils.js";
 
 const prisma = new PrismaClient();
 
-async function main() {
+export async function main() {
   const createUser: CreateUser = {
     name: "Role Admin",
     email: "admin@admin.com",
@@ -64,11 +64,11 @@ async function main() {
 
   const createQuestionsT1M1: CreateQuestion[] = [
     {
-      name: "Qual o nome do elemento HTML que representa um parágrafo?",
+      name: "O que significa HTML?",
       topicId: 1,
     },
     {
-      name: "Qual o nome do elemento HTML que representa um link?",
+      name: "Como definimos um documento HTML?",
       topicId: 1,
     },
     {
@@ -80,9 +80,12 @@ async function main() {
       topicId: 1,
     },
     {
-      name: "Qual a forma correta de se criar uma lista?",
+      name: "Qual arquivo é necessário para alterar o ícone da página?",
       topicId: 1,
     },
+  ];
+
+  const createQuestionsT2M1: CreateQuestion[] = [
     {
       name: "Qual tag abaixo pertence a um menu de navegação?",
       topicId: 1,
@@ -108,43 +111,43 @@ async function main() {
   const CreateAnswersT1M1: CreateAnswer[] = [
     // Question 1
     {
-      text: "p",
+      text: "Hypertext Markup Language",
       correct: true,
       questionId: 1,
     },
     {
-      text: "a",
+      text: "Home Tool Markup Language",
       correct: false,
       questionId: 1,
     },
     {
-      text: "div",
+      text: "Hyperlinks and Text Markup Language",
       correct: false,
       questionId: 1,
     },
     {
-      text: "span",
+      text: "Hypertools for Markup Language",
       correct: false,
       questionId: 1,
     },
     // Question 2
     {
-      text: "h1",
+      text: "#define <HTML>",
       correct: false,
       questionId: 2,
     },
     {
-      text: "link",
+      text: "import { HTML } from 'html'",
       correct: false,
       questionId: 2,
     },
     {
-      text: "a",
+      text: "<!DOCTYPE html>",
       correct: true,
       questionId: 2,
     },
     {
-      text: "img",
+      text: "<html>",
       correct: false,
       questionId: 2,
     },
@@ -190,36 +193,27 @@ async function main() {
       correct: false,
       questionId: 4,
     },
+  ];
+
+  const CreateAnswersT2M1: CreateAnswer[] = [
     // Question 5
     {
-      text: `
-      <list>
-        <item></item>
-      </list>`,
+      text: `page.icon`,
       correct: false,
       questionId: 5,
     },
     {
-      text: `
-      <ul>
-        <li></li>
-      </ul>`,
+      text: `favicon.ico`,
       correct: true,
       questionId: 5,
     },
     {
-      text: `
-      <ol>
-        <item></item>
-      </ol>`,
+      text: `icon.svg`,
       correct: false,
       questionId: 5,
     },
     {
-      text: `
-      <li>
-        <item></item>
-      </li>`,
+      text: `logo.png`,
       correct: false,
       questionId: 5,
     },
@@ -339,6 +333,10 @@ async function main() {
 
   await prisma.question.createMany({ data: createQuestionsT1M1 });
   await prisma.answer.createMany({ data: CreateAnswersT1M1 });
+
+  await prisma.question.createMany({ data: createQuestionsT2M1 });
+  await prisma.answer.createMany({ data: CreateAnswersT2M1 });
+
 }
 
 main()

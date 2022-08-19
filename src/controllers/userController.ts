@@ -19,3 +19,8 @@ export async function getHistory(_req: Request, res: Response) {
   const result = await service.getHistory(+userId);
   res.send(result);
 }
+
+export async function seed(_req: Request, res: Response) {
+  await service.seed();
+  res.sendStatus(200);
+}
